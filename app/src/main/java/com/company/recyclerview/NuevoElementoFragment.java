@@ -28,8 +28,20 @@ public class NuevoElementoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ElementosViewModel elementosViewModel = new ViewModelProvider(requireActivity()).get(ElementosViewModel.class);
-        NavController navController = Navigation.findNavController(view);
+        final ElementosViewModel elementosViewModel = new ViewModelProvider(requireActivity()).get(ElementosViewModel.class);
+        final NavController navController = Navigation.findNavController(view);
+
+        binding.crear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombre = binding.nombre.getText().toString();
+                String descripcion = binding.descripcion.getText().toString();
+
+                elementosViewModel.insertar(new Elemento(nombre, descripcion));
+
+                navController.popBackStack();
+            }
+        });
 
 
     }
